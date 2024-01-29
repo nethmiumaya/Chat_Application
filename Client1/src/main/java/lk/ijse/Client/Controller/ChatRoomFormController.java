@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -16,12 +18,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.util.Base64;
+import java.util.Random;
 
 public class ChatRoomFormController {
 
@@ -46,14 +49,14 @@ public class ChatRoomFormController {
     @FXML
     private Pane emojiPane;
 
-
-
     private Socket remoteSocket;
     private PrintWriter printWriter;
 
     private BufferedReader bufferedReader;
 
+    private File file;
 
+    private String encodedImage;
 
     public void initialize(){
         lblUsername.setText(LoginFormController.userName);
@@ -79,6 +82,66 @@ public class ChatRoomFormController {
                          System.out.println("firstCharacter " + firstCharacter);
                      }
                      if (firstCharacter.equalsIgnoreCase("img")){
+                        String path = message;
+                        byte[] imageDecode = Base64.getDecoder().decode(path);
+
+                        int randomNumber = new Random().nextInt(10000);
+                        String fileName = "image file"+randomNumber+".png";
+                        File filePath =  new File("Client1/src/main/resources/ImageFiles");
+                        File receivedImage = new File(filePath,fileName);
+
+                        try (FileOutputStream fileOutputStream = new FileOutputStream(receivedImage)){
+                            fileOutputStream.write(imageDecode);
+                        }
+
+                        Image image =new Image(receivedImage.toURI().toString());
+                        ImageView imageView = new ImageView(image);
+                        imageView.setFitHeight(300);
+                        imageView.setFitWidth(300);
+
+                        HBox imageHBox = new HBox(imageView);
+                        imageHBox.setPadding(new Insets(5));
+
+                        HBox hBox = new HBox(10);
+                        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+
+                        HBox innerBox = new HBox();
+                        innerBox.setPadding(new Insets(5,10,5,10));
+
+                        String[] name = userName.split("img");
+                        String realName= name[1];
+
+                        if (lblUsername.getText().equalsIgnoreCase(realName)){
+                            innerBox.setStyle(
+                                    "-fx-background-color: blue;" +
+                                            "-fx-background-radius: 15px"
+                            );
+                            innerBox.getChildren().add(imageHBox);
+                            hBox.getChildren().add(innerBox);
+                            hBox.setAlignment(Pos.TOP_RIGHT);
+                            hBox.setPadding(new Insets(6,6,6,10));
+
+                        }else {
+                            innerBox.setStyle(
+                                    "-fx-background-color: green;" +
+                                            "-fx-background-radius: 15px"
+                            );
+
+                            Text text = new Text(" "+realName+": ");
+                            text.setFont(Font.font(12.5));
+
+                            innerBox.getChildren().addAll(text,imageHBox);
+                            hBox.getChildren().add(innerBox);
+                            hBox.setAlignment(Pos.TOP_LEFT);
+                            hBox.setPadding(new Insets(6,6,6,10));
+
+
+                        }
+                        Platform.runLater(() -> {
+                            vBox.getChildren().add(hBox);
+                            scrollPane.layout();
+                            scrollPane.setVvalue(1.0);
+                        });
 
                      }else {
                          if (LoginFormController.userName.equalsIgnoreCase(userName)){
@@ -161,9 +224,17 @@ public class ChatRoomFormController {
 
     @FXML
     void btnSendOnAction(ActionEvent event) {
-        printWriter.println(LoginFormController.userName + ": " + txtMessage.getText());
+
+        if (file!=null){
+            printWriter.println("img"+lblUsername.getText()+":"+encodedImage);
+            file=null;
+        }else {
+            printWriter.println(LoginFormController.userName + ": " + txtMessage.getText());
+        }
         txtMessage.clear();
         emojiPane.setVisible(false);
+
+        txtMessage.setEditable(true);
     }
 
     @FXML
@@ -177,31 +248,59 @@ public class ChatRoomFormController {
     }
 
     @FXML
-    void btnFileOnAction(ActionEvent event) {
+    void btnFileOnAction(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an Image");
+        //Dena type eke files witarai select karanna denne
+        FileChooser.ExtensionFilter extensionFilter =
+                new FileChooser.ExtensionFilter("image files","*.jpg","*.jpeg","*.png","*.gif");
 
+        fileChooser.getExtensionFilters().add(extensionFilter);
+        //window eka open karala denne showOpenDialog method eken
+        file = fileChooser.showOpenDialog(txtMessage.getScene().getWindow());
+        if (file!=null){
+            txtMessage.setText("file selected");
+            txtMessage.setEditable(false);
+
+            byte[] imageToByte =Files.readAllBytes(file.toPath());
+            //api yawana image eka encode karaganna puluwan class ekk
+            encodedImage =Base64.getEncoder().encodeToString(imageToByte);
+
+            btnSendOnAction(event);
+
+        }
     }
     
     public void SmileMouseOnAction(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE0A");
+        emojiFinalize();
     }
 
     public void SorrowMouseOnClicked(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE22");
+        emojiFinalize();
     }
 
     public void heartMouseOnClicked(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE0D");
+        emojiFinalize();
     }
 
     public void handsUpOnMouseClicked(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE00");
+        emojiFinalize();
     }
 
     public void handDownMouseOnClicked(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE2F");
+        emojiFinalize();
     }
 
     public void sungalssMouseOnClicked(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE0E");
+        emojiFinalize();
+    }
+    private void emojiFinalize(){
+        txtMessage.requestFocus();
     }
 }
