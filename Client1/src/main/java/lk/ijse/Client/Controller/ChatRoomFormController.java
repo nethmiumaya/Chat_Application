@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -40,6 +42,9 @@ public class ChatRoomFormController {
 
     @FXML
     private Button btnFile;
+
+    @FXML
+    private Pane emojiPane;
 
 
 
@@ -158,6 +163,7 @@ public class ChatRoomFormController {
     void btnSendOnAction(ActionEvent event) {
         printWriter.println(LoginFormController.userName + ": " + txtMessage.getText());
         txtMessage.clear();
+        emojiPane.setVisible(false);
     }
 
     @FXML
@@ -167,13 +173,35 @@ public class ChatRoomFormController {
 
     @FXML
     void btnEmojiOnAction(ActionEvent event) {
-
+        emojiPane.setVisible(!emojiPane.isVisible());
     }
 
     @FXML
     void btnFileOnAction(ActionEvent event) {
 
     }
+    
+    public void SmileMouseOnAction(MouseEvent event) {
+        txtMessage.appendText("\uD83D\uDE0A");
+    }
 
+    public void SorrowMouseOnClicked(MouseEvent event) {
+        txtMessage.appendText("\uD83D\uDE22");
+    }
 
+    public void heartMouseOnClicked(MouseEvent event) {
+        txtMessage.appendText("\uD83D\uDE0D");
+    }
+
+    public void handsUpOnMouseClicked(MouseEvent event) {
+        txtMessage.appendText("\uD83D\uDE00");
+    }
+
+    public void handDownMouseOnClicked(MouseEvent event) {
+        txtMessage.appendText("\uD83D\uDE2F");
+    }
+
+    public void sungalssMouseOnClicked(MouseEvent event) {
+        txtMessage.appendText("\uD83D\uDE0E");
+    }
 }
