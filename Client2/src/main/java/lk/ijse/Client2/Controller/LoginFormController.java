@@ -3,11 +3,11 @@ package lk.ijse.Client2.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import lk.ijse.Client.Util.Navigation;
+import lk.ijse.Client2.Util.Navigation;
 
 import java.io.IOException;
 
-public class LoginForm2Controller {
+public class LoginFormController {
 
     @FXML
     private TextField txtUsername;
@@ -16,7 +16,7 @@ public class LoginForm2Controller {
     @FXML
     void btnLoginOnAction(ActionEvent event) throws IOException {
         userName = txtUsername.getText();
-        Navigation.switchNavigation("/View/ChatRoomForm2.fxml",event);
+        Navigation.switchNavigation("/View/ChatRoomForm.fxml",event);
     }
 
     @FXML
