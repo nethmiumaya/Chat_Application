@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Client2.Controller.LoginFormController">
+<AnchorPane prefHeight="502.0" prefWidth="883.0" style="-fx-background-color: #967bb6;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Client2.Controller.LoginFormController">
    <children>
-      <TextField fx:id="txtUsername" layoutX="476.0" layoutY="202.0" onAction="#txtUsernameOnAction" prefHeight="56.0" prefWidth="315.0" />
-      <JFXButton layoutX="549.0" layoutY="312.0" onAction="#btnLoginOnAction" prefHeight="35.0" prefWidth="149.0" style="-fx-background-color: lightblue;" text=" " />
+      <ImageView fitHeight="505.0" fitWidth="785.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assests/amanda_image1.jpeg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="660.0" layoutY="254.0" prefHeight="149.0" prefWidth="226.0" style="-fx-background-color: #e6e8fa; -fx-background-radius: 20;">
+         <children>
+            <JFXButton layoutX="52.0" layoutY="92.0" onAction="#btnLoginOnAction" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #6c3082; -fx-background-radius: 20;" text="START" textFill="#f7f0f0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <TextField fx:id="txtUsername" alignment="TOP_LEFT" layoutX="26.0" layoutY="34.0" onAction="#txtUsernameOnAction" prefHeight="44.0" prefWidth="190.0" promptText="Username" style="-fx-background-color: white;" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="78.0" fitWidth="92.0" layoutX="14.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assests/iconMessege.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="777.0" layoutY="63.0" prefHeight="30.0" prefWidth="120.0" text="welcome" textFill="#1a0b1b">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="726.0" layoutY="128.0" prefHeight="21.0" prefWidth="203.0" text="     Chat Application" textFill="#faf8f8">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="78.0" fitWidth="78.0" layoutX="207.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assests/iconLightColour.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="816.0" layoutY="102.0" text="to">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

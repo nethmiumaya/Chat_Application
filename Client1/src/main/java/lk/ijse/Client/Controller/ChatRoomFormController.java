@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
+import lk.ijse.Client.Util.Navigation;
 
 import java.io.*;
 import java.net.Socket;
@@ -62,9 +63,8 @@ public class ChatRoomFormController {
         lblUsername.setText(LoginFormController.userName);
          new Thread(()->{
              try {
-                 System.out.println("client started");
+
                  remoteSocket=new Socket("localhost",5000);
-                 System.out.println("client connected");
                  bufferedReader = new BufferedReader(new InputStreamReader(remoteSocket.getInputStream()));
                  printWriter = new PrintWriter(remoteSocket.getOutputStream(),true);
                  while(true){
@@ -303,4 +303,14 @@ public class ChatRoomFormController {
     private void emojiFinalize(){
         txtMessage.requestFocus();
     }
+
+    @FXML
+    void btnMinimizeOnAction(ActionEvent event) {
+        Navigation.minimize();
+    }
+    @FXML
+    void btnCloseOnAction(ActionEvent event) {
+        System.exit(0);
+    }
+
 }

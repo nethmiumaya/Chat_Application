@@ -65,5 +65,7 @@
             </ImageView>
          </children>
       </Pane>
+      <JFXButton layoutX="1060.0" layoutY="24.0" onAction="#btnCloseOnAction" prefHeight="4.0" prefWidth="35.0" style="-fx-background-color: red;" text="-" />
+      <JFXButton layoutX="1011.0" layoutY="24.0" onAction="#btnMinimizeOnAction" prefHeight="4.0" prefWidth="35.0" style="-fx-background-color: red;" text="-" />
    </children>
 </AnchorPane>

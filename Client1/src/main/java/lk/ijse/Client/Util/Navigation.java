@@ -20,4 +20,9 @@ public class Navigation {
         stage.centerOnScreen();
         stage.show();
     }
+    public static void minimize(){
+        if (stage!=null){
+            stage.setIconified(true);
+        }
+    }
 }
