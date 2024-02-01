@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="502.0" prefWidth="883.0" style="-fx-background-color: #967bb6;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Client2.Controller.LoginFormController">
+<AnchorPane prefHeight="476.0" prefWidth="879.0" style="-fx-background-color: #967bb6;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Client2.Controller.LoginFormController">
    <children>
-      <ImageView fitHeight="505.0" fitWidth="785.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="525.0" fitWidth="759.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Assests/amanda_image1.jpeg" />
          </image>

@@ -24,6 +24,9 @@ import lk.ijse.Client2.Util.Navigation;
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Random;
 
@@ -59,7 +62,15 @@ public class ChatRoomFormController {
 
     private String encodedImage;
 
+    @FXML
+    private Label lblDate;
+
+    @FXML
+    private Label lblTime;
+
     public void initialize(){
+        setDate();
+        setTime();
         lblUsername.setText(LoginFormController.userName);
          new Thread(()->{
              try {
@@ -113,7 +124,7 @@ public class ChatRoomFormController {
 
                         if (lblUsername.getText().equalsIgnoreCase(realName)){
                             innerBox.setStyle(
-                                    "-fx-background-color: blue;" +
+                                    "-fx-background-color: #9c45f0;" +
                                             "-fx-background-radius: 15px"
                             );
                             innerBox.getChildren().add(imageHBox);
@@ -123,7 +134,7 @@ public class ChatRoomFormController {
 
                         }else {
                             innerBox.setStyle(
-                                    "-fx-background-color: green;" +
+                                    "-fx-background-color: #c0c0c0;" +
                                             "-fx-background-radius: 15px"
                             );
 
@@ -153,7 +164,7 @@ public class ChatRoomFormController {
                                  HBox innerBox = new HBox();
                                  innerBox.setPadding(new Insets(2,10,2,10));
                                  innerBox.setStyle(
-                                         "-fx-background-color: blue;" +
+                                         "-fx-background-color: #9c45f0;" +
                                          "-fx-background-radius: 15px"
                                  );
 
@@ -187,7 +198,7 @@ public class ChatRoomFormController {
                                  HBox innerBox = new HBox();
                                  innerBox.setPadding(new Insets(2,10,2,10));
                                  innerBox.setStyle(
-                                         "-fx-background-color: green;" +
+                                         "-fx-background-color: #c0c0c0;" +
                                                  "-fx-background-radius: 15px"
                                  );
 
@@ -274,6 +285,15 @@ public class ChatRoomFormController {
     public void SmileMouseOnAction(MouseEvent event) {
         txtMessage.appendText("\uD83D\uDE0A");
         emojiFinalize();
+    }
+    private void setDate() {
+        String date = String.valueOf(LocalDate.now());
+        lblDate.setText(date);
+    }
+    private void setTime() {
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        lblTime.setText(currentTime.format(formatter));
     }
     @FXML
     public void SorrowMouseOnClicked(MouseEvent event) {
